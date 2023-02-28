@@ -11,8 +11,8 @@ const route=useRoute()
 const getBred=()=>{
     let mached=route.matched.filter(item=>item.meta&&item.meta.title)
     const first=mached[0]
-    if(first.path!=='/'){
-        mached=[{path:'/',meta:{title:'首页'}} as any ].concat(mached)
+    if(first&&first.path!=='/'){
+      mached=[{path:'/',meta:{title:'首页'}} as any ].concat(mached)
     }
     tabs.value=mached
 }

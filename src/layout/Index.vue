@@ -25,7 +25,7 @@ import Tabs from '@/layout/tabs/Tabs.vue'
 .layout{
    height: 100%;
    .sider{
-   
+    overflow:hidden;
    }
    .header{
     height: 50px;

@@ -16,8 +16,8 @@
 
 <script lang="ts" setup>
 
-import { reactive,computed } from 'vue'
-import {useStore} from '@/store'
+import {computed } from 'vue'
+import {useStore} from '@/store/index'
 import {useRoute} from 'vue-router'
 
 import MenuBarItem from '@/layout/menu/MenuBarItem.vue'
@@ -38,66 +38,69 @@ const handleClose = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
 }
 const isCollapse=computed(()=>{
-  return store.getters['getCollapse']
+  return store.getters['menus/getCollapse']
 });
-let menuList=reactive([
-  {
-    path:'/',
-    component:'Layout',
-    meta:{
-      title:'首页',
-      icon:'House',
-    }
-  },
-  {
-    path:'/system',
-    component:'Layout',
-    meta:{
-      title:"系统管理",
-      icon:'House',
-    },
-    children:[
-       {
-        path:'depart',
-        component:'Layout',
-        name:'depart',
-        meta:{
-          title:'部门管理',
-          icon:'CirclePlus'
-        }
-       },
-       {
-        path:'user',
-        component:'Layout',
-        name:'user',
-        meta:{
-          title:'用户管理',
-          icon:'User'
-        }
-       }
-    ]
-  },
-  {
-    path:'/message',
-    component:'layout',
-    meta:{
-      title:'消息中心',
-      icon:'ChatRound',
-    },
-    children:[
-      {
-        path:'manage',
-        component:'Layout',
-        name:'manage',
-        meta:{
-          title:'消息管理',
-          icon:'ChatLineRound'
-        }
-      }
-    ]
-  }
+const menuList=computed(()=>{
+  return store.getters['menus/getMenuList']
+})
+// const menuList=reactive([
+//   {
+//     path:'/',
+//     component:'Layout',
+//     meta:{
+//       title:'首页',
+//       icon:'House',
+//     }
+//   },
+//   {
+//     path:'/system',
+//     component:'Layout',
+//     meta:{
+//       title:"系统管理",
+//       icon:'House',
+//     },
+//     children:[
+//        {
+//         path:'depart',
+//         component:'Layout',
+//         name:'depart',
+//         meta:{
+//           title:'部门管理',
+//           icon:'CirclePlus'
+//         }
+//        },
+//        {
+//         path:'user',
+//         component:'Layout',
+//         name:'user',
+//         meta:{
+//           title:'用户管理',
+//           icon:'User'
+//         }
+//        }
+//     ]
+//   },
+//   {
+//     path:'/message',
+//     component:'layout',
+//     meta:{
+//       title:'消息中心',
+//       icon:'ChatRound',
+//     },
+//     children:[
+//       {
+//         path:'manage',
+//         component:'Layout',
+//         name:'manage',
+//         meta:{
+//           title:'消息管理',
+//           icon:'ChatLineRound'
+//         }
+//       }
+//     ]
+//   }
 
-])
+// ])
 </script>
 
 <style lang="scss">

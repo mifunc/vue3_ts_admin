@@ -9,10 +9,10 @@ import {useStore} from '@/store'
 import {Fold,Expand} from '@element-plus/icons'
 const store=useStore()
 const status = computed(()=>{
-  return store.getters['getCollapse']
+  return store.getters['menus/getCollapse']
 })
 const changeCollapse=()=>{
-  store.commit('setCollapse', !status.value)
+  store.commit('menus/setCollapse', !status.value)
 }
 </script>
 <style lang="scss" scoped>

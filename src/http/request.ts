@@ -67,14 +67,18 @@ class request{
      * @returns 
      */
     get<T = any>(url: string, parms?: any): Promise<Result<T>> {
+        console.log(111111111111)
+        console.log(parms)
         return new Promise((resolve, reject) => {
             this.instance.get<T>(url, {
                 params: parms,
                 paramsSerializer:{
-                    encode:(parms: any) => qs.stringify(parms, { arrayFormat: 'repeat' })
+                    serialize: (params: any) => {
+                        return qs.stringify(params);
+                    }
                 } 
             }).then((res) => {
-                resolve(res.data as any)
+                resolve(res as any)
             }).catch((error) => {
                 reject(error)
             })
@@ -101,7 +105,8 @@ class request{
                     'Content-Type': ContentTypeEnum.JSON
                 }
             }).then((res) => {
-                resolve(res.data as any)
+
+                resolve(res as any)
             }).catch((error) => {
                 reject(error)
             })

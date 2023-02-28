@@ -18,7 +18,7 @@
 <script setup lang='ts'>
 import {ref,watch,onMounted} from 'vue'
 import { computed} from 'vue'
-import {useStore} from '@/store'
+import {useStore} from '@/store/index'
 import {useRoute,useRouter} from 'vue-router'
 import {Itab} from '@/store/type/index'
 const store=useStore()
@@ -26,7 +26,7 @@ const route=useRoute()
 const router=useRouter()
 
 const tabsList = computed(()=>{
-    return store.getters['getTabsList']
+    return store.getters['tabs/getTabsList']
 })
 const addTab=()=>{
     const {path,meta} = route
@@ -34,7 +34,7 @@ const addTab=()=>{
        title:meta.title as string,
        path:path
     }
-    store.commit('addTabs',tab)
+    store.commit('tabs/addTabs',tab)
 }
 
 const activeTab=ref('')
@@ -45,6 +45,7 @@ const tabClick=(tab:any)=>{
 }
 
 const removeTab = (targetName: string) => {
+  if(targetName === '/')return;
   const tabs = tabsList.value
   let activeName = activeTab.value
   if (activeName === targetName) {
@@ -59,7 +60,7 @@ const removeTab = (targetName: string) => {
   }
 
   activeTab.value = activeName
-  store.state.tabsList = tabs.filter((tab:Itab) => tab.path !== targetName)
+  store.state.tabs.tabsList = tabs.filter((tab:Itab) => tab.path !== targetName)
   router.push({path:activeName})
 }
 const setActive=()=>{
@@ -73,7 +74,7 @@ const beforeUnload=()=>{
     if(tabSession){
         let oldViews=JSON.parse(tabSession)
         if(oldViews.length>0){
-            store.state.tabsList=oldViews;
+            store.state.tabs.tabsList=oldViews;
         }
     }
 }
